@@ -1,22 +1,33 @@
 import base_engine
 
 
-class engine:
-    base = base_engine.get_base()
+class Engine:
+    base = []
     them = 0
     word = 0
     lesson_type = 0
 
     @staticmethod
     def get_themes():
-        return engine.base.keys()
+        return base_engine.get_themes()
 
     @staticmethod
     def start_lesson(them1, les_type):
-        engine.lesson_type = les_type
-        engine.them = them1
-        engine.word = 0
+        Engine.base = base_engine.get_base(them1 if them1 != -1 else None)
+        Engine.lesson_type = les_type
+        if les_type == 1:
+            Engine.base = [[i[1], i[0]] for i in Engine.base]
+        Engine.them = them1
+        Engine.word = 0
 
     @staticmethod
     def get_word():
-        return engine.base[enumerate(engine.base.keys())][engine.word]
+        return Engine.base[Engine.word]
+
+    @staticmethod
+    def pass_word(passed):
+        Engine.word += 1
+
+    @staticmethod
+    def has_next_word():
+        return Engine.word < len(Engine.base)
