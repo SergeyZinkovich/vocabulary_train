@@ -1,4 +1,5 @@
 import base_engine
+from random import randint
 
 
 class Engine:
@@ -18,7 +19,7 @@ class Engine:
         if les_type == 1:
             Engine.base = [[i[1], i[0]] for i in Engine.base]
         Engine.them = them1
-        Engine.word = 0
+        Engine.word = randint(0, len(Engine.base) - 1)
 
     @staticmethod
     def get_word():
@@ -26,7 +27,9 @@ class Engine:
 
     @staticmethod
     def pass_word(passed):
-        Engine.word += 1
+        if passed:
+            Engine.base.pop(Engine.word)
+        Engine.word = randint(0, len(Engine.base) - 1)
 
     @staticmethod
     def has_next_word():
